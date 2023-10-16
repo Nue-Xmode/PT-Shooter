@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://busnqxgu48wle"]
+
+[node name="Platform" type="TileMap"]
+format = 2
