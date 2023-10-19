@@ -2,17 +2,31 @@ using Godot;
 
 namespace PTShooter.Assets.Scripts.Player
 {
-	public partial class Player : CharacterBody2D
+	/// <summary>
+	/// 玩家移动控制器
+	/// </summary>
+	public partial class PlayerMovement : CharacterBody2D
 	{
-		[Export] private float _normalSpeed = 80.0f;
-		[Export] private float _jumpForce = 100.0f;
-		[Export] private bool _canMoveAir = false;
-		private float _lastMoveDir = 0f;
+		[Export] private float _normalSpeed = 100.0f;
+		[Export] private float _dashSpeed = 200.0f;
+		[Export] private float _jumpForce = 400.0f;
+		[Export] private bool _canMoveAir = true;
+		public static float LastMoveDir = 0f;
+		private int _lastPlayerFaceDir = 1;
 
 		private float _gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle(); //将Variant转换为float
 
+		private AnimatedSprite2D _sprite2D;
+
+		public override void _Ready()
+		{
+			_sprite2D = GetNode<AnimatedSprite2D>("PlayerSprite");
+		}
+
 		public override void _PhysicsProcess(double delta)
 		{
+			Flip();
+			
 			//重力
 			if (!IsOnFloor())
 			{
@@ -43,22 +57,38 @@ namespace PTShooter.Assets.Scripts.Player
 			Vector2 targetHorizontalMovement = Vector2.Zero;
 			float negativeXDir = Input.GetActionStrength("move_left");
 			float positiveXDir = Input.GetActionStrength("move_right");
-
-			//移动指令后覆盖//
+			
 			if ((negativeXDir == 0 && positiveXDir == 0))
 			{
 				targetHorizontalMovement = Vector2.Zero;
-				_lastMoveDir = 0f;
+				LastMoveDir = 0f;
 			}
+			//移动指令后覆盖//
 			else
 			{
 				if (negativeXDir == 0 || positiveXDir == 0)
 				{
-					targetHorizontalMovement = new Vector2((negativeXDir == 0 ? positiveXDir : -negativeXDir) * _normalSpeed, velocity.Y);
-					_lastMoveDir = negativeXDir == 0 ? positiveXDir : -negativeXDir;
+					LastMoveDir = negativeXDir == 0 ? positiveXDir : -negativeXDir;
+					
+					//dash
+					if (Input.IsActionPressed("move_dash"))
+					{
+						targetHorizontalMovement = new Vector2(LastMoveDir * _dashSpeed, velocity.Y);
+						return targetHorizontalMovement;
+					}
+					targetHorizontalMovement = new Vector2(LastMoveDir * _normalSpeed, velocity.Y);
 				}
 				else
-					targetHorizontalMovement = new Vector2(-_lastMoveDir * _normalSpeed, velocity.Y);
+				{
+					targetHorizontalMovement = new Vector2(-LastMoveDir * _normalSpeed, velocity.Y);
+					
+					//dash
+					if (Input.IsActionPressed("move_dash"))
+					{
+						targetHorizontalMovement = new Vector2(-LastMoveDir * _dashSpeed, velocity.Y);
+						return targetHorizontalMovement;
+					}
+				}
 			}
 
 			return targetHorizontalMovement;
@@ -80,7 +110,26 @@ namespace PTShooter.Assets.Scripts.Player
 		/// <returns></returns>
 		private Vector2 GetJumpVector()
 		{
-			return new Vector2(_lastMoveDir, - _jumpForce);
+			return new Vector2(LastMoveDir, - _jumpForce);
+		}
+
+		/// <summary>
+		/// 玩家翻转
+		/// </summary>
+		private void Flip()
+		{
+			if (Velocity.X == 0)
+				_sprite2D.FlipH = _lastPlayerFaceDir < 0;
+			else if (Mathf.Sign(Velocity.X) > 0)
+			{
+				_lastPlayerFaceDir = 1;
+				_sprite2D.FlipH = _lastPlayerFaceDir < 0;
+			}
+			else if (Mathf.Sign(Velocity.X) < 0)
+			{
+				_lastPlayerFaceDir = -1;
+				_sprite2D.FlipH = _lastPlayerFaceDir < 0;
+			}
 		}
 	}
 }

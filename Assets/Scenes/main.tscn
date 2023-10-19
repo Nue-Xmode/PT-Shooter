@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://busnqxgu48wle" path="res://Assets/Scenes/Map/platform.tscn" id="1_pvvy4"]
 [ext_resource type="TileSet" uid="uid://c3jtuvx1t2rcj" path="res://Resources/tile_set.tres" id="2_13eq7"]
 [ext_resource type="PackedScene" uid="uid://caxt7u3nkt6jy" path="res://Assets/Scenes/Player/player.tscn" id="3_s1rj5"]
-[ext_resource type="Script" path="res://Assets/Scripts/Player/Player.cs" id="4_wtbn1"]
+[ext_resource type="Script" path="res://Assets/Scripts/Player/PlayerMovement.cs" id="4_4xw3d"]
 
 [node name="Main" type="Node2D"]
 
@@ -15,7 +15,4 @@ layer_0/tile_data = PackedInt32Array(327680, 1, 0, 393216, 1, 1, 458752, 1, 2, 5
 [node name="Player" parent="." instance=ExtResource("3_s1rj5")]
 position = Vector2(137, 69)
 collision_layer = 2
-script = ExtResource("4_wtbn1")
-_normalSpeed = 100.0
-_jumpForce = 400.0
-_canMoveAir = true
+script = ExtResource("4_4xw3d")
