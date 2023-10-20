@@ -11,7 +11,7 @@ position = Vector2(149, 197)
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("1_i0lv2")
-animation = &"idle"
+animation = &"jump_start"
 autoplay = "idle"
 script = ExtResource("2_olkmo")
 

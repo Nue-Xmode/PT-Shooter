@@ -2,6 +2,8 @@ using Godot;
 
 namespace PTShooter.Assets.Scripts.Player
 {
+	public enum PlayerState { Idle, Walk, Dash, JumpStart, JumpFall }
+	
 	/// <summary>
 	/// 玩家移动控制器
 	/// </summary>
@@ -11,9 +13,11 @@ namespace PTShooter.Assets.Scripts.Player
 		[Export] private float _dashSpeed = 200.0f;
 		[Export] private float _jumpForce = 400.0f;
 		[Export] private bool _canMoveAir = true;
-		public static float LastMoveDir = 0f;
 		private int _lastPlayerFaceDir = 1;
+		private float _lastMoveDir = 0f;
 
+		public static PlayerState CurrentState = PlayerState.Idle;
+		
 		private float _gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle(); //将Variant转换为float
 
 		private AnimatedSprite2D _sprite2D;
@@ -25,6 +29,8 @@ namespace PTShooter.Assets.Scripts.Player
 
 		public override void _PhysicsProcess(double delta)
 		{
+			SwitchState();
+			
 			Flip();
 			
 			//重力
@@ -61,31 +67,31 @@ namespace PTShooter.Assets.Scripts.Player
 			if ((negativeXDir == 0 && positiveXDir == 0))
 			{
 				targetHorizontalMovement = Vector2.Zero;
-				LastMoveDir = 0f;
+				_lastMoveDir = 0f;
 			}
 			//移动指令后覆盖//
 			else
 			{
 				if (negativeXDir == 0 || positiveXDir == 0)
 				{
-					LastMoveDir = negativeXDir == 0 ? positiveXDir : -negativeXDir;
+					_lastMoveDir = negativeXDir == 0 ? positiveXDir : -negativeXDir;
 					
 					//dash
 					if (Input.IsActionPressed("move_dash"))
 					{
-						targetHorizontalMovement = new Vector2(LastMoveDir * _dashSpeed, velocity.Y);
+						targetHorizontalMovement = new Vector2(_lastMoveDir * _dashSpeed, velocity.Y);
 						return targetHorizontalMovement;
 					}
-					targetHorizontalMovement = new Vector2(LastMoveDir * _normalSpeed, velocity.Y);
+					targetHorizontalMovement = new Vector2(_lastMoveDir * _normalSpeed, velocity.Y);
 				}
 				else
 				{
-					targetHorizontalMovement = new Vector2(-LastMoveDir * _normalSpeed, velocity.Y);
+					targetHorizontalMovement = new Vector2(-_lastMoveDir * _normalSpeed, velocity.Y);
 					
 					//dash
 					if (Input.IsActionPressed("move_dash"))
 					{
-						targetHorizontalMovement = new Vector2(-LastMoveDir * _dashSpeed, velocity.Y);
+						targetHorizontalMovement = new Vector2(-_lastMoveDir * _dashSpeed, velocity.Y);
 						return targetHorizontalMovement;
 					}
 				}
@@ -106,11 +112,10 @@ namespace PTShooter.Assets.Scripts.Player
 		/// <summary>
 		/// 获取某一时刻的跳跃力向量
 		/// </summary>
-		/// <param name="velocity">节点原移动向量</param>
 		/// <returns></returns>
 		private Vector2 GetJumpVector()
 		{
-			return new Vector2(LastMoveDir, - _jumpForce);
+			return new Vector2(_lastMoveDir, - _jumpForce);
 		}
 
 		/// <summary>
@@ -129,6 +134,28 @@ namespace PTShooter.Assets.Scripts.Player
 			{
 				_lastPlayerFaceDir = -1;
 				_sprite2D.FlipH = _lastPlayerFaceDir < 0;
+			}
+		}
+
+		/// <summary>
+		/// 状态切换
+		/// </summary>
+		private void SwitchState()
+		{
+			if (_lastMoveDir == 0 && IsOnFloor())
+				CurrentState = PlayerState.Idle;
+			else if (_lastMoveDir != 0 && !Input.IsActionPressed("move_dash")
+					 && IsOnFloor())
+				CurrentState = PlayerState.Walk;
+			else if (_lastMoveDir != 0 && Input.IsActionPressed("move_dash")
+					 && IsOnFloor())
+				CurrentState = PlayerState.Dash;
+			else if (!IsOnFloor())
+			{
+				if (Velocity.Y <= 0)
+					CurrentState = PlayerState.JumpStart;
+				else if (Velocity.Y > 0)
+					CurrentState = PlayerState.JumpFall;
 			}
 		}
 	}

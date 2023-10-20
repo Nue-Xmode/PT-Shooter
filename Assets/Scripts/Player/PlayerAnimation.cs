@@ -10,9 +10,23 @@ namespace PTShooter.Assets.Scripts.Player
 	{
 		public override void _Process(double delta)
 		{
-			if (PlayerMovement.LastMoveDir != 0)
+			SwitchAnimation();
+		}
+
+		/// <summary>
+		/// 动画切换
+		/// </summary>
+		private void SwitchAnimation()
+		{
+			if (PlayerMovement.CurrentState == PlayerState.JumpStart)
+				Play("jump_start");
+			else if (PlayerMovement.CurrentState == PlayerState.JumpFall)
+				Play("jump_end");
+			else if (PlayerMovement.CurrentState == PlayerState.Dash)
+				Play("dash");
+			else if (PlayerMovement.CurrentState == PlayerState.Walk)
 				Play("walk");
-			else
+			else if (PlayerMovement.CurrentState == PlayerState.Idle)
 				Play("idle");
 		}
 	}
