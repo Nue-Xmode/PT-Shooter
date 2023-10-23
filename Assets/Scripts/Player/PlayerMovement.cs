@@ -1,4 +1,5 @@
 using Godot;
+using PTShooter.Resources;
 
 namespace PTShooter.Assets.Scripts.Player
 {
@@ -17,8 +18,6 @@ namespace PTShooter.Assets.Scripts.Player
 		private float _lastMoveDir = 0f;
 
 		public static PlayerState CurrentState = PlayerState.Idle;
-		
-		private float _gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle(); //将Variant转换为float
 
 		private AnimatedSprite2D _sprite2D;
 
@@ -106,7 +105,7 @@ namespace PTShooter.Assets.Scripts.Player
 		/// <returns></returns>
 		private Vector2 GetGravityVector(float delta)
 		{
-			return new Vector2(0, _gravity * delta);
+			return new Vector2(0, Settings.Gravity * delta);
 		}
 
 		/// <summary>
