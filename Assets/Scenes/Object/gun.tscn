@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnmyi47jr3qwt"]
+
+[ext_resource type="Texture2D" uid="uid://d2j2n0s2uu0u8" path="res://Assets/Arts/1.png" id="1_e4adr"]
+[ext_resource type="Script" path="res://Assets/Scripts/Object/Gun.cs" id="1_wnvkb"]
+[ext_resource type="PackedScene" uid="uid://b2hwjkwvmue1a" path="res://Assets/Scenes/Object/bullet.tscn" id="2_luc3y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hqdbo"]
+
+[node name="Gun" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_wnvkb")
+_bulletScene = ExtResource("2_luc3y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hqdbo")
+
+[node name="ShootInterval" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.3
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_e4adr")
