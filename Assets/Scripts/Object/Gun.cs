@@ -1,4 +1,5 @@
 using Godot;
+using PTShooter.Resources;
 
 namespace PTShooter.Assets.Scripts.Object
 {
@@ -16,8 +17,8 @@ namespace PTShooter.Assets.Scripts.Object
 
 		public override void _PhysicsProcess(double delta)
 		{
-			Shoot();
 			FollowPlayer();
+			Shoot();
 		}
 
 		/// <summary>
