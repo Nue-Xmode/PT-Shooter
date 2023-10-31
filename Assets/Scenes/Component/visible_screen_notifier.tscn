@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://8c3xmuuf81mw"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Component/VisibleScreenNotifier.cs" id="1_3y6ed"]
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D"]
+script = ExtResource("1_3y6ed")

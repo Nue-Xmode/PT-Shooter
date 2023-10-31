@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b2hwjkwvmue1a"]
+[gd_scene load_steps=6 format=3 uid="uid://b2hwjkwvmue1a"]
 
 [ext_resource type="Texture2D" uid="uid://td0mtstbw5gx" path="res://Assets/Arts/Skill_03_color1.png" id="1_i4mix"]
 [ext_resource type="Script" path="res://Assets/Scripts/Object/Bullet.cs" id="1_kb4i5"]
+[ext_resource type="PackedScene" uid="uid://deu0c8gdt8dqk" path="res://Assets/Scenes/Component/hit_box.tscn" id="3_eew6u"]
+[ext_resource type="PackedScene" uid="uid://8c3xmuuf81mw" path="res://Assets/Scenes/Component/visible_screen_notifier.tscn" id="4_6h2on"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yf3ky"]
 
@@ -21,4 +23,10 @@ frame = 3
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_yf3ky")
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+[node name="HitBox" parent="." node_paths=PackedStringArray("_owner") instance=ExtResource("3_eew6u")]
+collision_layer = 8
+collision_mask = 4
+_owner = NodePath("..")
+
+[node name="VisibleOnScreenNotifier2D" parent="." node_paths=PackedStringArray("_owner") instance=ExtResource("4_6h2on")]
+_owner = NodePath("..")
