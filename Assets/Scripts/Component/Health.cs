@@ -25,7 +25,7 @@ namespace PTShooter.Assets.Scripts.Component
 		/// 受到伤害时调用
 		/// </summary>
 		/// <param name="damage"></param>
-		public void GetHurt(int damage)
+		public void GetDamage(int damage)
 		{
 			_currentHp = _currentHp - damage > 0 ? _currentHp - damage : 0;
 		}

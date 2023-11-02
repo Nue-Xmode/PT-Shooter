@@ -13,6 +13,7 @@ collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_kb4i5")
 _speed = 10.0
+_damage = 80
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_i4mix")

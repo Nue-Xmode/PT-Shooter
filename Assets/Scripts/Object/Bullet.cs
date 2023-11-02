@@ -9,6 +9,7 @@ namespace PTShooter.Assets.Scripts.Object
 		private Vector2 _targetDirection;
 		private bool _canMove;
 		[Export] private float _speed = 50.0f;
+		[Export] private int _damage;
 
 		private bool _canFree;
 
@@ -55,8 +56,9 @@ namespace PTShooter.Assets.Scripts.Object
 
 		#region 接口方法
 		
-			public void GetHit()
+			public void GetHit(out int damage)
 			{
+				damage = _damage;
 				_canFree = true;
 			}
 			public void VisibleChangedOnScreenNotifier()

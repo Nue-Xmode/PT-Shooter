@@ -6,16 +6,14 @@ namespace PTShooter.Assets.Scripts.Component
     public partial class HurtBox : Area2D
     {
         [Export] private Node2D _owner;
-		
-        public override void _Ready()
+        private int _currentHitDamage;
+
+        public void GetHit(int damage)
         {
-            AreaEntered += OnAreaEntered;
-        }
-		
-        private void OnAreaEntered(Area2D other)
-        {
+            _currentHitDamage = damage;
+            
             if (_owner is IHurtBox hurtBox)
-                hurtBox.GetHurt();
+                hurtBox.GetHurt(_currentHitDamage);
         }
     }
 }

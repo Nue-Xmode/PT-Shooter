@@ -50,9 +50,9 @@ namespace PTShooter.Assets.Scripts.Enemy
 
 		#region 接口方法
 		
-			public void GetHurt()
+			public void GetHurt(int damage)
 			{
-				_health?.GetHurt(80);
+				_health?.GetDamage(damage);
 			}
 
 			public void HealthLessThanZero()
