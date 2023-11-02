@@ -1,7 +1,7 @@
 namespace PTShooter.Resources.Scripts.Interfaces
 {
-	public interface IHitBox
+	public interface IHurtBox
 	{
-		public void GetHit();
+		public void GetHurt();
 	}
 }

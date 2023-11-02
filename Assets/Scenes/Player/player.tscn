@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://caxt7u3nkt6jy"]
+[gd_scene load_steps=5 format=3 uid="uid://caxt7u3nkt6jy"]
 
 [ext_resource type="SpriteFrames" uid="uid://nb8mlo0cppbw" path="res://Resources/player_sprite_frames.tres" id="1_i0lv2"]
+[ext_resource type="Script" path="res://Assets/Scripts/Player/PlayerMovement.cs" id="1_k7543"]
 [ext_resource type="Script" path="res://Assets/Scripts/Player/PlayerAnimation.cs" id="2_olkmo"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u88ue"]
@@ -8,6 +9,7 @@ height = 42.0
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(149, 197)
+script = ExtResource("1_k7543")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("1_i0lv2")

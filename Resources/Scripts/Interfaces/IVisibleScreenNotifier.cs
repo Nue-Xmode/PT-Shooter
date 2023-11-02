@@ -1,7 +1,7 @@
-namespace PTShooter.Resources.Scripts
+namespace PTShooter.Resources.Scripts.Interfaces
 {
     public interface IVisibleScreenNotifier
     {
-        public void TriggerVisibleScreenNotifier();
+        public void VisibleChangedOnScreenNotifier();
     }
 }

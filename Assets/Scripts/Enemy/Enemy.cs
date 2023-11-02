@@ -1,12 +1,16 @@
 using Godot;
+using PTShooter.Assets.Scripts.Component;
 using PTShooter.Resources;
+using PTShooter.Resources.Scripts.Interfaces;
 
 namespace PTShooter.Assets.Scripts.Enemy
 {
-	public partial class Enemy : CharacterBody2D
+	public partial class Enemy : CharacterBody2D, IHurtBox, IHealth
 	{
 		[Export] private float _normalSpeed = 60.0f;
 		[Export] private bool _canFly = false;
+
+		[Export] private Health _health;
 
 		public override void _PhysicsProcess(double delta)
 		{
@@ -43,5 +47,19 @@ namespace PTShooter.Assets.Scripts.Enemy
 			
 			return Vector2.Zero;
 		}
+
+		#region 接口方法
+		
+			public void GetHurt()
+			{
+				_health?.GetHurt(80);
+			}
+
+			public void HealthLessThanZero()
+			{
+				QueueFree();
+			}
+		
+		#endregion
 	}
 }

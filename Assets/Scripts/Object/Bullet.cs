@@ -1,5 +1,5 @@
 using Godot;
-using PTShooter.Resources.Scripts;
+using PTShooter.Resources.Scripts.Interfaces;
 
 namespace PTShooter.Assets.Scripts.Object
 {
@@ -53,13 +53,13 @@ namespace PTShooter.Assets.Scripts.Object
 			
 		#endregion
 
-		#region 接口实现
+		#region 接口方法
 		
-			public void TriggerHitBox()
+			public void GetHit()
 			{
 				_canFree = true;
 			}
-			public void TriggerVisibleScreenNotifier()
+			public void VisibleChangedOnScreenNotifier()
 			{
 				_canFree = true;
 			}

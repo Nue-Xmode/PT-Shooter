@@ -1,5 +1,5 @@
 using Godot;
-using PTShooter.Resources.Scripts;
+using PTShooter.Resources.Scripts.Interfaces;
 
 namespace PTShooter.Assets.Scripts.Component
 {
@@ -17,7 +17,7 @@ namespace PTShooter.Assets.Scripts.Component
 		private void OnVisibilityChanged()
 		{
 			if (_owner is IVisibleScreenNotifier visibleScreenNotifier)
-				visibleScreenNotifier.TriggerVisibleScreenNotifier();
+				visibleScreenNotifier.VisibleChangedOnScreenNotifier();
 		}
 	}
 }

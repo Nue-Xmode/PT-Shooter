@@ -1,11 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://qtr25pegv4k2"]
+[gd_scene load_steps=6 format=3 uid="uid://qtr25pegv4k2"]
 
 [ext_resource type="PackedScene" uid="uid://busnqxgu48wle" path="res://Assets/Scenes/Map/platform.tscn" id="1_pvvy4"]
 [ext_resource type="TileSet" uid="uid://c3jtuvx1t2rcj" path="res://Resources/tile_set.tres" id="2_13eq7"]
 [ext_resource type="PackedScene" uid="uid://caxt7u3nkt6jy" path="res://Assets/Scenes/Player/player.tscn" id="3_s1rj5"]
-[ext_resource type="Script" path="res://Assets/Scripts/Player/PlayerMovement.cs" id="4_4xw3d"]
 [ext_resource type="PackedScene" uid="uid://cnxa5ywp5p3rv" path="res://Assets/Scenes/Enemy/basic_enemy.tscn" id="5_nbf2n"]
-[ext_resource type="Script" path="res://Assets/Scripts/Enemy/Enemy.cs" id="6_cbev8"]
 [ext_resource type="PackedScene" uid="uid://bnmyi47jr3qwt" path="res://Assets/Scenes/Object/gun.tscn" id="7_swq1h"]
 
 [node name="Main" type="Node2D"]
@@ -18,11 +16,9 @@ layer_0/tile_data = PackedInt32Array(327680, 1, 0, 393216, 1, 1, 458752, 1, 2, 5
 [node name="Player" parent="." groups=["player"] instance=ExtResource("3_s1rj5")]
 position = Vector2(137, 69)
 collision_layer = 2
-script = ExtResource("4_4xw3d")
 
 [node name="BasicEnemy" parent="." instance=ExtResource("5_nbf2n")]
 position = Vector2(582, 196)
-script = ExtResource("6_cbev8")
 
 [node name="Gun" parent="." instance=ExtResource("7_swq1h")]
 position = Vector2(320, 141)

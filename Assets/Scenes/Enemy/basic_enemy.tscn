@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cnxa5ywp5p3rv"]
+[gd_scene load_steps=9 format=3 uid="uid://cnxa5ywp5p3rv"]
 
 [ext_resource type="Texture2D" uid="uid://doj3ertgd72dl" path="res://Assets/Arts/Animations/Enemy/Monster1Pack.png" id="1_0gno3"]
+[ext_resource type="Script" path="res://Assets/Scripts/Enemy/Enemy.cs" id="1_xl5lf"]
 [ext_resource type="PackedScene" uid="uid://bpooiv4o52mel" path="res://Assets/Scenes/Component/hurt_box.tscn" id="2_meptk"]
+[ext_resource type="PackedScene" uid="uid://bi2k61qmcngyc" path="res://Assets/Scenes/Component/health.tscn" id="3_bf11q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xlt7l"]
 size = Vector2(22.5, 14)
@@ -45,8 +47,10 @@ _data = {
 "idle": SubResource("Animation_4n2pj")
 }
 
-[node name="BasicEnemy" type="CharacterBody2D"]
+[node name="BasicEnemy" type="CharacterBody2D" node_paths=PackedStringArray("_health")]
 collision_layer = 4
+script = ExtResource("1_xl5lf")
+_health = NodePath("Health")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_0gno3")
@@ -64,6 +68,10 @@ libraries = {
 "": SubResource("AnimationLibrary_lc2fw")
 }
 
-[node name="HurtBox" parent="." instance=ExtResource("2_meptk")]
+[node name="Health" parent="." node_paths=PackedStringArray("_owner") instance=ExtResource("3_bf11q")]
+_owner = NodePath("..")
+
+[node name="HurtBox" parent="." node_paths=PackedStringArray("_owner") instance=ExtResource("2_meptk")]
 collision_layer = 4
 collision_mask = 8
+_owner = NodePath("..")

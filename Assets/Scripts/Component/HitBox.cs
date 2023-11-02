@@ -1,5 +1,5 @@
 using Godot;
-using PTShooter.Resources.Scripts;
+using PTShooter.Resources.Scripts.Interfaces;
 
 namespace PTShooter.Assets.Scripts.Component
 {
@@ -14,10 +14,8 @@ namespace PTShooter.Assets.Scripts.Component
 		
 		private void OnAreaEntered(Area2D other)
 		{
-			GD.Print(other.Owner.Name);
-
 			if (_owner is IHitBox hitBox)
-				hitBox.TriggerHitBox();
+				hitBox.GetHit();
 		}
 	}
 }
