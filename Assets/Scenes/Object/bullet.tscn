@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://deu0c8gdt8dqk" path="res://Assets/Scenes/Component/hit_box.tscn" id="3_eew6u"]
 [ext_resource type="PackedScene" uid="uid://8c3xmuuf81mw" path="res://Assets/Scenes/Component/visible_screen_notifier.tscn" id="4_6h2on"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_yf3ky"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_o2p2r"]
 
 [node name="Bullet" type="RigidBody2D"]
 collision_layer = 0
@@ -21,13 +21,18 @@ hframes = 6
 vframes = 2
 frame = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_yf3ky")
-
 [node name="HitBox" parent="." node_paths=PackedStringArray("_owner") instance=ExtResource("3_eew6u")]
+position = Vector2(-10, 0)
+scale = Vector2(1.65066, 1.5987)
 collision_layer = 8
 collision_mask = 4
 _owner = NodePath("..")
 
 [node name="VisibleOnScreenNotifier2D" parent="." node_paths=PackedStringArray("_owner") instance=ExtResource("4_6h2on")]
+position = Vector2(-9.5, -1.5)
+scale = Vector2(1.55, 1.45)
 _owner = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-11, 0)
+shape = SubResource("CircleShape2D_o2p2r")

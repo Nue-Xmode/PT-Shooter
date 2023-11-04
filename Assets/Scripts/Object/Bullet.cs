@@ -1,5 +1,7 @@
+using System;
 using Godot;
 using PTShooter.Resources.Scripts.Interfaces;
+using EventHandler = PTShooter.Resources.Scripts.EventHandler;
 
 namespace PTShooter.Assets.Scripts.Object
 {
@@ -7,10 +9,10 @@ namespace PTShooter.Assets.Scripts.Object
 	{
 		private Vector2 _targetPosition;
 		private Vector2 _targetDirection;
-		private bool _canMove;
 		[Export] private float _speed = 50.0f;
 		[Export] private int _damage;
 
+		private bool _canMove;
 		private bool _canFree;
 
 		public override void _PhysicsProcess(double delta)
@@ -33,14 +35,27 @@ namespace PTShooter.Assets.Scripts.Object
 			}
 
 			/// <summary>
-			/// 初始化相关数据
+			/// 启动子弹
 			/// </summary>
-			/// <param name="targetPosition"></param>
-			public void Init(Vector2 targetPosition)
+			/// <param name="fromPosition">起始位置</param>
+			/// <param name="targetPosition">目标位置</param>
+			public void ActiveBullet(Vector2 fromPosition, Vector2 targetPosition)
 			{
+				Visible = true;
+				GlobalPosition = fromPosition;
 				_targetPosition = targetPosition;
 				_targetDirection = (targetPosition - GlobalPosition).Normalized();
 				_canMove = true;
+			}
+
+			/// <summary>
+			/// 暂停子弹运动
+			/// </summary>
+			public void DisableBullet()
+			{
+				_canFree = false;
+				_canMove = false;
+				Visible = false;
 			}
 
 			/// <summary>
@@ -49,19 +64,20 @@ namespace PTShooter.Assets.Scripts.Object
 			private void CheckState()
 			{
 				if (_canFree)
-					QueueFree();
+					EventHandler.BulletCanFreeEvent(this);
 			}
 			
 		#endregion
 
-		#region 接口方法
+		#region 接口实现
 		
 			public void GetHit(out int damage)
 			{
 				damage = _damage;
 				_canFree = true;
 			}
-			public void VisibleChangedOnScreenNotifier()
+			
+			public void ScreenExited()
 			{
 				_canFree = true;
 			}

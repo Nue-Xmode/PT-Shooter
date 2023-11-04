@@ -9,15 +9,13 @@ namespace PTShooter.Assets.Scripts.Component
 		
 		public override void _Ready()
 		{
-			VisibilityChanged += OnVisibilityChanged;
-			
-			
+			ScreenExited += OnScreenExited;
 		}
 
-		private void OnVisibilityChanged()
+		private void OnScreenExited()
 		{
 			if (_owner is IVisibleScreenNotifier visibleScreenNotifier)
-				visibleScreenNotifier.VisibleChangedOnScreenNotifier();
+				visibleScreenNotifier.ScreenExited();
 		}
 	}
 }

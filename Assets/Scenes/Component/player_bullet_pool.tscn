@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ct4c8waidfghy"]
+
+[ext_resource type="Script" path="res://Resources/Scripts/ObjectPool.cs" id="1_1lq2u"]
+
+[node name="ObjectPool" type="Node"]
+script = ExtResource("1_1lq2u")
