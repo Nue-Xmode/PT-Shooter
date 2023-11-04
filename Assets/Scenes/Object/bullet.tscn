@@ -27,6 +27,7 @@ scale = Vector2(1.65066, 1.5987)
 collision_layer = 8
 collision_mask = 4
 _owner = NodePath("..")
+_damage = 30
 
 [node name="VisibleOnScreenNotifier2D" parent="." node_paths=PackedStringArray("_owner") instance=ExtResource("4_6h2on")]
 position = Vector2(-9.5, -1.5)

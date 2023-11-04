@@ -50,7 +50,7 @@ namespace PTShooter.Assets.Scripts.Enemy
 
 		#region 接口方法
 		
-			public void GetHurt(int damage)
+			public void Hurt(int damage)
 			{
 				_health?.GetDamage(damage);
 			}

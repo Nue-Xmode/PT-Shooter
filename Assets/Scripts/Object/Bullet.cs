@@ -71,9 +71,8 @@ namespace PTShooter.Assets.Scripts.Object
 
 		#region 接口实现
 		
-			public void GetHit(out int damage)
+			public void Hit()
 			{
-				damage = _damage;
 				_canFree = true;
 			}
 			
