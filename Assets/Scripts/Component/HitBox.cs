@@ -13,6 +13,11 @@ namespace PTShooter.Assets.Scripts.Component
 			AreaEntered += OnAreaEntered;
 		}
 		
+		
+		/// <summary>
+		/// 攻击触发时调用，触发对应接口行为
+		/// </summary>
+		/// <param name="other"></param>
 		private void OnAreaEntered(Area2D other)
 		{
 			if (_owner is IHitBox hitBox)

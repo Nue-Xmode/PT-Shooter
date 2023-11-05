@@ -3,7 +3,7 @@ using PTShooter.Assets.Scripts.Object;
 
 namespace PTShooter.Resources.Scripts
 {
-    public class EventHandler
+    public static class EventHandler
     {
         public static event Action<Bullet> BulletCanFree;
 

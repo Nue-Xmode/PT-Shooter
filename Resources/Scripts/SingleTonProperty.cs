@@ -1,5 +1,4 @@
 ﻿using System;
-using PTShooter.Resources.Scripts.Interfaces;
 
 namespace PTShooter.Resources.Scripts
 {
